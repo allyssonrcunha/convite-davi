@@ -190,6 +190,137 @@
             font-size: 1.1em;
         }
 
+        /* Estilos para o formulário de confirmação */
+        .confirmation-section {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .confirmation-button {
+            background: white;
+            color: #4caf50;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .confirmation-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            color: #333;
+            display: none;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .add-guest-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .guest-input {
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
@@ -207,6 +338,14 @@
                 width: 40px;
                 height: 40px;
                 font-size: 1.2em;
+            }
+
+            .confirmation-section {
+                padding: 20px;
+            }
+
+            .form-container {
+                padding: 20px;
             }
         }
     </style>
@@ -261,9 +400,187 @@
             </div>
         </div>
         
+        <div class="confirmation-section">
+            <h2>🎉 Confirme sua Presença! 🎉</h2>
+            <p style="margin: 15px 0;">Clique no botão abaixo para confirmar que você vem à festa!</p>
+            
+            <button class="confirmation-button" onclick="toggleForm()">
+                ✅ Confirmar Presença
+            </button>
+            
+            <div class="form-container" id="confirmationForm">
+                <h3 style="color: #4caf50; margin-bottom: 20px;">📝 Seus Dados</h3>
+                
+                <form id="presenceForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Seu nome completo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Acompanhantes</label>
+                        <div id="acompanhantes">
+                            <input type="text" name="acompanhante1" placeholder="Nome do acompanhante (opcional)" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 10px;">
+                        </div>
+                        <button type="button" class="add-guest-btn" onclick="addGuestInput()">
+                            ➕ Adicionar mais um acompanhante
+                        </button>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        🎈 Confirmar Presença
+                    </button>
+                    
+                    <div class="success-message" id="successMessage">
+                        ✅ Presença confirmada com sucesso! Obrigado!
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage">
+                        ❌ Erro ao confirmar presença. Tente novamente.
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <div class="footer">
             <p>🎈 Conto com sua presença! 🎈</p>
         </div>
     </div>
+
+    <script>
+        let guestCount = 1;
+        
+        // URL do Google Apps Script - VOCÊ PRECISA SUBSTITUIR ESTA URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLcTx0c6Ap_08Rt5nwC7KrROz1ncmtr-W25avlp9mBKUJzbGtg21ZBNatM9Ns7k1-t/exec';
+        
+        function toggleForm() {
+            const form = document.getElementById('confirmationForm');
+            const button = document.querySelector('.confirmation-button');
+            
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+                button.textContent = '❌ Cancelar';
+            } else {
+                form.style.display = 'none';
+                button.textContent = '✅ Confirmar Presença';
+                resetForm();
+            }
+        }
+        
+        function addGuestInput() {
+            guestCount++;
+            const acompanhantesDiv = document.getElementById('acompanhantes');
+            
+            const newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.name = `acompanhante${guestCount}`;
+            newInput.placeholder = `Nome do acompanhante ${guestCount} (opcional)`;
+            newInput.style.cssText = 'width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 10px;';
+            
+            acompanhantesDiv.appendChild(newInput);
+            
+            // Limitar a 5 acompanhantes
+            if (guestCount >= 5) {
+                document.querySelector('.add-guest-btn').style.display = 'none';
+            }
+        }
+        
+        function resetForm() {
+            document.getElementById('presenceForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+            
+            // Reset guest inputs
+            const acompanhantesDiv = document.getElementById('acompanhantes');
+            acompanhantesDiv.innerHTML = '<input type="text" name="acompanhante1" placeholder="Nome do acompanhante (opcional)" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 10px;">';
+            guestCount = 1;
+            document.querySelector('.add-guest-btn').style.display = 'inline-block';
+        }
+        
+        async function submitForm(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Desabilitar botão durante envio
+            submitBtn.disabled = true;
+            submitBtn.textContent = '📤 Enviando...';
+            
+            // Ocultar mensagens anteriores
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Coletar dados do formulário
+            const formData = new FormData(event.target);
+            const data = {};
+            
+            // Coletar dados básicos
+            data.nome = formData.get('nome');
+            data.timestamp = new Date().toLocaleString('pt-BR');
+            
+            // Coletar acompanhantes
+            const acompanhantes = [];
+            for (let i = 1; i <= guestCount; i++) {
+                const acompanhante = formData.get(`acompanhante${i}`);
+                if (acompanhante && acompanhante.trim()) {
+                    acompanhantes.push(acompanhante.trim());
+                }
+            }
+            data.acompanhantes = acompanhantes.join(', ');
+            data.totalPessoas = 1 + acompanhantes.length;
+            
+            try {
+                // Se você não configurou o Google Apps Script ainda, 
+                // os dados serão mostrados no console por enquanto
+                if (SCRIPT_URL === 'SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI') {
+                    console.log('Dados que seriam enviados:', data);
+                    
+                    // Simular sucesso para demonstração
+                    setTimeout(() => {
+                        successMessage.style.display = 'block';
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '🎈 Confirmar Presença';
+                        
+                        // Fechar formulário após 3 segundos
+                        setTimeout(() => {
+                            toggleForm();
+                        }, 3000);
+                    }, 1000);
+                    
+                    return;
+                }
+                
+                // Enviar para Google Apps Script
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    
+                    // Fechar formulário após 3 segundos
+                    setTimeout(() => {
+                        toggleForm();
+                    }, 3000);
+                } else {
+                    throw new Error('Erro na resposta do servidor');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao enviar formulário:', error);
+                errorMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🎈 Confirmar Presença';
+            }
+        }
+    </script>
 </body>
 </html>
