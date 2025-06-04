@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário - Davi faz 6 anos!</title>
+    
+    <!-- Meta Tags Open Graph para pré-visualização no WhatsApp -->
+    <meta property="og:title" content="Convite de Aniversário - Davi faz 6 anos!">
+    <meta property="og:description" content="Festa do Sonic! Dia 21/06/2025 às 16:00 - Venha comemorar com a gente!">
+    <meta property="og:image" content="https://artpoin.com/wp-content/uploads/2023/10/artpoin-sonic-the-hedgehog10.png">
+    <meta property="og:url" content="COLE_AQUI_O_LINK_DO_SEU_SITE">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convite de Aniversário - Davi faz 6 anos!">
+    <meta name="twitter:description" content="Festa do Sonic! Dia 21/06/2025 às 16:00">
+    <meta name="twitter:image" content="https://artpoin.com/wp-content/uploads/2023/10/artpoin-sonic-the-hedgehog10.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .convite-container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sonic-trail {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #0066ff;
+            border-radius: 50%;
+            top: 50%;
+            animation: sonicRun 3s linear infinite;
+            box-shadow: 
+                0 0 20px #0066ff,
+                -10px 0 20px rgba(0, 102, 255, 0.5),
+                -20px 0 20px rgba(0, 102, 255, 0.3),
+                -30px 0 20px rgba(0, 102, 255, 0.2);
+        }
+
+        @keyframes sonicRun {
+            from {
+                left: -100px;
+            }
+            to {
+                left: calc(100% + 100px);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .sonic-image {
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .content {
+            padding: 30px;
+            background: white;
+        }
+
+        .info-section {
+            background: #f5f5f5;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 3px solid #e3f2fd;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-text strong {
+            display: block;
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+
+        .celebration-text {
+            text-align: center;
+            font-size: 1.3em;
+            color: #1976d2;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffd700;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .footer {
+            background: #e3f2fd;
+            padding: 20px;
+            text-align: center;
+            color: #1976d2;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .sonic-image {
+                width: 150px;
+            }
+            
+            .info-item {
+                font-size: 1em;
+            }
+            
+            .icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="convite-container">
+        <div class="header">
+            <div class="sonic-trail"></div>
+            <h1>Davi faz 6 anos!</h1>
+            <img src="https://artpoin.com/wp-content/uploads/2023/10/artpoin-sonic-the-hedgehog10.png" 
+                 alt="Sonic" 
+                 class="sonic-image">
+            <div class="stars">
+                <span class="star" style="top: 10%; left: 10%; animation-delay: 0s;">⭐</span>
+                <span class="star" style="top: 20%; left: 80%; animation-delay: 0.5s;">⭐</span>
+                <span class="star" style="top: 80%; left: 20%; animation-delay: 1s;">⭐</span>
+                <span class="star" style="top: 70%; left: 70%; animation-delay: 1.5s;">⭐</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <p class="celebration-text">
+                🎮 Venha comemorar comigo! 🎮
+            </p>
+            
+            <div class="info-section">
+                <div class="info-item">
+                    <div class="icon">📅</div>
+                    <div class="info-text">
+                        <strong>Data</strong>
+                        21 de Junho de 2025
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="icon">🕐</div>
+                    <div class="info-text">
+                        <strong>Horário</strong>
+                        16:00 horas
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="icon">📍</div>
+                    <div class="info-text">
+                        <strong>Local</strong>
+                        Rua Enedina D'Avila Ferreira, 712<br>
+                        Salão de Festas - Cordeiros<br>
+                        Itajaí/SC
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🎈 Conto com sua presença! 🎈</p>
+        </div>
+    </div>
+</body>
+</html>
